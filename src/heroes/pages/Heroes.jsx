@@ -1,9 +1,12 @@
+import { useMemo } from "react"
 import HeroCard from "../components/HeroCard"
 import getHeroesByPublisher from "../helpers/getHeroesByPublisher"
 import PropTypes from 'prop-types'
 
 export default function Heroes({publisher}) {
-  const arrayHeroes = getHeroesByPublisher(publisher)
+  const arrayHeroes = useMemo(()=>
+    getHeroesByPublisher(publisher)
+  ,[publisher]) 
 
   return (
     <>

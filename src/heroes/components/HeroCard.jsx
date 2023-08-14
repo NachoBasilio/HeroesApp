@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 export default function HeroCard({hero}) {
   return (
     <div
-    className="col"
+    className="col animate__animated animate__fadeIn"
 
     >
         <div className="card">
