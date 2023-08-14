@@ -1,6 +1,5 @@
 import { Navigate, useNavigate, useParams } from "react-router-dom"
 import getHeroByID from "../helpers/getHeroByID"
-import { useMemo } from "react"
 
 export default function Hero() {
   const { id } = useParams()
