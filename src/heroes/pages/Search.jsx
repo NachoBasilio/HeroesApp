@@ -1,6 +1,30 @@
+import { useLocation, useNavigate } from "react-router-dom";
+import queryString from 'query-string'
 import HeroCard from "../components/HeroCard";
+import useForm from "../hooks/useForm";
+import getHeroesByName from "../helpers/getHeroesByName";
+
 
 export default function Search() {
+
+  const navigate = useNavigate()
+  const location = useLocation()
+
+  const {q = ""} = queryString.parse(location.search)
+  const heroesFiltrados = getHeroesByName(q)
+
+  const {searchText, onInputChange} = useForm({
+    searchText: q || ''
+  })
+
+  const onSearchSubmit = (e) => {
+    e.preventDefault()
+    if(searchText.trim().length < 2) return
+
+    navigate(`?q=${searchText.toLowerCase().trim()}`)
+
+  }
+
   return (
     <>
       <h1>Search</h1>
@@ -9,13 +33,17 @@ export default function Search() {
         <div className="col-5">
           <h4>Search Form</h4>
           <hr />
-          <form action="">
+          <form action=""
+          onSubmit={onSearchSubmit}
+          >
             <input 
             type="text" 
             placeholder="Find your hero"
             className="form-control"
             name="searchText"
             autoComplete="off"
+            value={searchText}
+            onChange={onInputChange}
             />
             <button
             type="submit"
@@ -30,15 +58,30 @@ export default function Search() {
           <h4>Results</h4>
           <hr />
 
-          <div className="alert alert-primary">
-            Search a hero
-          </div>
 
-          <div className="alert alert-danger">
-            Hero not found
-          </div>
+          {
+           ( heroesFiltrados.length === 0 && q == '') &&
+            <div className="alert alert-info">
+              Search a hero
+            </div>
+          }
 
-          {/* <HeroCard  /> */}
+          {
+            (q.length > 1 && heroesFiltrados.length === 0) &&
+            <div className="alert alert-danger">
+              There is no a hero with {q}
+            </div>
+          }
+
+          {
+            heroesFiltrados.map(hero => (
+              <HeroCard
+              key={hero.id}
+              hero = {hero}
+              />
+            ))
+          }
+
         </div>
       </div>
       </>
