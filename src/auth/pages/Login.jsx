@@ -3,12 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 export default function Login() {
-  const {login } = useContext(AuthContext);
+  const {login} = useContext(AuthContext);
   const navigate = useNavigate();
-
+  
   const handleLogin = () => {
     login("Aguaragua")
-    navigate('/', { replace: true })
+    navigate('/marvel', { replace: true })
   }
 
   return (

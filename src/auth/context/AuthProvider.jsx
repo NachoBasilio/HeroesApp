@@ -16,6 +16,7 @@ const init = () => {
     }
 }
 
+
 export default function AuthProvider({children}) {
     const [state, dispatch] = useReducer(authReducer, initialState, init)
 
@@ -34,12 +35,24 @@ export default function AuthProvider({children}) {
         
         localStorage.setItem('user', JSON.stringify(user))
         dispatch(action)
+        console.log(state)
     }
+
+    const onLogout = () => {
+        const action = {
+            type: types.logout
+        }
+        localStorage.removeItem('user')
+        dispatch(action)
+    }
+
+
 
   return (
     <AuthContext.Provider value={{
         state,
-        login: onLogin
+        login: onLogin,
+        logout: onLogout
     }}>
         {children}
     </AuthContext.Provider>
