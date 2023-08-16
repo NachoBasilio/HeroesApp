@@ -8,7 +8,9 @@ export default function Login() {
   
   const handleLogin = () => {
     login("Aguaragua")
-    navigate('/marvel', { replace: true })
+
+    const lastPatch = localStorage.getItem('lastPath') || '/';
+    navigate(lastPatch, { replace: true })
   }
 
   return (
