@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 
 export default function HeroCard({hero}) {
+  const heroImageUrl = `/heroes/${ hero.id }.jpg`;
   return (
     <div
     className="col animate__animated animate__fadeIn"
@@ -11,7 +12,7 @@ export default function HeroCard({hero}) {
         <div className="card">
 
         <div className="card-body">
-            <img src={`./assets/heroes/${hero.id}.jpg`} className="card-img-top" alt={hero.superhero} />
+            <img src={heroImageUrl} className="card-img-top" alt={hero.superhero} />
             <h5 className="card-title">{hero.superhero}</h5>
             <p className="card-text">{hero.alter_ego}</p>
             {
